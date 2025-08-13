@@ -116,7 +116,7 @@ open class SiSearchIndex<TT : SiRecord>(
                 "Initialized the same index again: $fullName ${this::class.simpleName}"
             )
         }
-        logger.debug("Initialized index: {}", fullName)
+        logger.trace("Initialized index: {}", fullName)
         existingIndexNames.add(fullName)
 
         initIndex()
