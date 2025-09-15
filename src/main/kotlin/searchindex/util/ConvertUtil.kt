@@ -19,6 +19,7 @@ object ConvertUtil {
             is Boolean -> JsonPrimitive(value)
             is FloatArray -> JsonArray(value.take(some(shortenTo)).map { JsonPrimitive(it) })
             is Enum<*> -> JsonPrimitive(value.name)
+            is StringExporter -> JsonPrimitive(value.stringExport())
             is Collection<*> -> JsonArray(value.take(some(shortenTo)).map { toJsonValue(it, shortenTo) })
             is Map<*, *> -> value.entries.associate { (key, value) ->
                 when (key) {

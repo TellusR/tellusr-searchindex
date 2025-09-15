@@ -1,6 +1,7 @@
 package com.tellusr.searchindex
 
 import com.tellusr.searchindex.util.JsonExporter
+import com.tellusr.searchindex.util.StringExporter
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import org.apache.lucene.document.*
@@ -101,6 +102,7 @@ enum class SiFieldType {
                 is Boolean -> listOf(StringField(key, value.toString(), Field.Store.YES))
                 is Instant -> listOf(StringField(key, value.toString(), Field.Store.YES))
                 is Enum<*> -> listOf(StringField(key, value.name, Field.Store.YES))
+                is StringExporter -> listOf(StringField(key, value.stringExport(), Field.Store.YES))
                 is JsonElement -> listOf(TextField(key, jsonEncoder.encodeToString(value), Field.Store.YES))
                 is JsonExporter -> value.jsonExport().let {
                     listOf(TextField(key, jsonEncoder.encodeToString(it), Field.Store.YES))
